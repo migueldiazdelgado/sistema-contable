@@ -3,13 +3,14 @@ const router = require('express').Router();
 
 async function abonar(req, res) {
     const {id_centro,saldo_anterior,entrada,salida,descripcion,saldo_nuevo} = req.body;
+
     const data = new Saldos({id_centro,saldo_anterior,entrada,salida,descripcion,saldo_nuevo});
     
     try {
         const query = await data.save();
         res.json({
             error: false,
-            data: query
+            result: query
         })
     } catch (error) {
         res.status(400).json({error: error})
@@ -22,9 +23,9 @@ const getByPost = async (req,res) => {
         if(id_centro !== "")
         {
             const query = await Saldos.find({$and:[
-                {id_centro: id_centro},
-                {fecha:{$gte: from}},
-                {fecha:{$lte: to}}                  
+                    {id_centro: id_centro},
+                    {fecha:{$gte: from}},
+                    {fecha:{$lte: to}}                  
                 ]
             })
     
@@ -46,4 +47,18 @@ const getByPost = async (req,res) => {
 
 }
 
-module.exports = {abonar, getByPost};
+const getAll = async(req, res) => {
+    try {
+        const query = await Saldos.find({});
+        res.json({
+            error: null,
+            result: query
+        })
+    } catch (error) {
+        res.status(400).json({
+            error: error
+        })
+    }
+}
+
+module.exports = {abonar, getByPost, getAll};
