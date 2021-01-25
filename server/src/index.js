@@ -4,6 +4,7 @@ const app = express();
 const usersRouter = require('./routers/usersRouter')
 const clientesRouter = require('./routers/clientesRouter')
 const saldosRouter = require('./routers/saldosRouter')
+const compraRouter = require('./routers/compraRouter')
 require('dotenv').config()
 
 app.use(express.urlencoded({extended: true}));
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use('/api/usuarios', usersRouter)
 app.use('/api/clientes', clientesRouter)
 app.use('/api/saldos', saldosRouter)
+app.use('/api/compra', compraRouter)
 
 // connecting db & starting server
 const options = { 
