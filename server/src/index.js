@@ -10,8 +10,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 //middlewares
-
-//app.use('/api/usuarios', usersRouter)
+app.use('/api/usuarios', usersRouter)
 app.use('/api/clientes', clientesRouter)
 app.use('/api/saldos', saldosRouter)
 
@@ -22,7 +21,7 @@ const options = {
 }
 
 mongoose.connect(process.env.URL_DB, options)
-.then(() => console.log('database is connected'))
-.then(() => app.listen(process.env.PORT, () => console.log(`Iniciando en ${process.env.PORT}`)))
+.then(() => console.log('Conexion establacida exitosamente...'))
+.then(() => app.listen(process.env.PORT, () => console.log(`Server running in http://localhost:${process.env.PORT}`)))
 .catch(error => console.log(error))
 
